@@ -1,4 +1,21 @@
 {
   "app": { "name": "ULTodo" },
-  "nav": { "brain": "덤프", "matrix": "매트릭스", "today": "오늘", "focus": "집중" }
+  "nav": { "brain": "덤프", "matrix": "매트릭스", "today": "오늘", "focus": "집중", "settings": "설정" },
+  "menu": { "eyebrow": "메뉴", "settingsHint": "언어, 집중 개수, 타이머" },
+  "settings": {
+    "eyebrow": "설정",
+    "title": "내 시스템을 조정하세요.",
+    "language": "언어",
+    "languageHint": "앱 인터페이스를 영어와 한국어로 전환합니다.",
+    "english": "영어",
+    "korean": "한국어",
+    "today": "오늘 집중",
+    "todayHint": "오늘 화면에 표시할 작업 개수를 정합니다.",
+    "pomodoro": "포모도로",
+    "focusMinutes": "집중 시간",
+    "breakMinutes": "휴식 시간",
+    "scope": "범위",
+    "scopeHint": "프로젝트와 태그 필터는 상단 범위 시트에서 관리합니다."
+  },
+  "common": { "minutes": "분" }
 }

@@ -1,3 +1,5 @@
+export type Language = 'en' | 'ko'
+
 export interface Settings {
   id: 'default'
   activeProjectId: string | 'all'
@@ -7,6 +9,7 @@ export interface Settings {
   breakMinutes: number
   theme: 'system' | 'light' | 'dark'
   brainView: 'list' | 'card'
+  language: Language
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -18,4 +21,5 @@ export const DEFAULT_SETTINGS: Settings = {
   breakMinutes: 5,
   theme: 'system',
   brainView: 'list',
+  language: 'en',
 }

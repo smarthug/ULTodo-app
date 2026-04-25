@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import i18n from '@/i18n'
 import { bootstrapDatabase } from '@/db/bootstrap'
 import { createTag, createTask, deleteTask, patchSettings, readAll, updateTask } from '@/db/repositories'
 import { DEFAULT_SETTINGS, type Settings } from '@/features/settings/settings-types'
@@ -34,7 +35,9 @@ export function TaskStoreProvider({ children }: { children: ReactNode }) {
     setTasks(next.tasks)
     setProjects(next.projects)
     setTags(next.tags)
-    setSettingsState(next.settings)
+    const hydratedSettings = { ...DEFAULT_SETTINGS, ...next.settings }
+    setSettingsState(hydratedSettings)
+    if (i18n.language !== hydratedSettings.language) await i18n.changeLanguage(hydratedSettings.language)
     setReady(true)
   }, [])
 
@@ -74,6 +77,7 @@ export function TaskStoreProvider({ children }: { children: ReactNode }) {
 
   const setSettings = useCallback(async (patch: Partial<Settings>) => {
     const next = await patchSettings(patch)
+    if (patch.language && i18n.language !== patch.language) await i18n.changeLanguage(patch.language)
     await reload()
     return next
   }, [reload])

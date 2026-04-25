@@ -1,4 +1,21 @@
 {
   "app": { "name": "ULTodo" },
-  "nav": { "brain": "Brain", "matrix": "Matrix", "today": "Today", "focus": "Focus" }
+  "nav": { "brain": "Brain", "matrix": "Matrix", "today": "Today", "focus": "Focus", "settings": "Settings" },
+  "menu": { "eyebrow": "Menu", "settingsHint": "Language, focus count, timer" },
+  "settings": {
+    "eyebrow": "Settings",
+    "title": "Tune your system.",
+    "language": "Language",
+    "languageHint": "Switch the app interface between English and Korean.",
+    "english": "English",
+    "korean": "Korean",
+    "today": "Today focus",
+    "todayHint": "Choose how many tasks appear on Today.",
+    "pomodoro": "Pomodoro",
+    "focusMinutes": "Focus minutes",
+    "breakMinutes": "Break minutes",
+    "scope": "Scope",
+    "scopeHint": "Project and tag filters still live in the top scope sheet."
+  },
+  "common": { "minutes": "min" }
 }
