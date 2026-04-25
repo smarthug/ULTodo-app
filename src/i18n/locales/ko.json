@@ -1,0 +1,4 @@
+{
+  "app": { "name": "ULTodo" },
+  "nav": { "brain": "덤프", "matrix": "매트릭스", "today": "오늘", "focus": "집중" }
+}

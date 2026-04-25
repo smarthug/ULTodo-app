@@ -1,0 +1,4 @@
+{
+  "app": { "name": "ULTodo" },
+  "nav": { "brain": "Brain", "matrix": "Matrix", "today": "Today", "focus": "Focus" }
+}

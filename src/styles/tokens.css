@@ -1,0 +1,34 @@
+:root {
+  --paper: #FAF7F2;
+  --paper-2: #F3EFE7;
+  --paper-3: #E8E3D9;
+  --ink: #1A1814;
+  --ink-2: #3A362E;
+  --ink-3: #6B6459;
+  --ink-4: #A39B8C;
+  --hair: rgba(26,24,20,0.08);
+  --hair-2: rgba(26,24,20,0.14);
+  --accent: #ee9d11;
+  --accent-soft: #F2DFCB;
+  --accent-ink: #7A3F13;
+  --danger: #B0452C;
+  --success: #4F6B3C;
+  --sans: 'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --mono: 'Geist Mono', ui-monospace, monospace;
+  --serif: 'Instrument Serif', 'Times New Roman', serif;
+}
+
+.dark {
+  --paper: #15130F;
+  --paper-2: #1C1A15;
+  --paper-3: #26221B;
+  --ink: #F2EDE3;
+  --ink-2: #D6CFC0;
+  --ink-3: #928A7C;
+  --ink-4: #5B5547;
+  --hair: rgba(242,237,227,0.08);
+  --hair-2: rgba(242,237,227,0.14);
+  --accent: #E89657;
+  --accent-soft: #3D2A1A;
+  --accent-ink: #F5C79A;
+}
