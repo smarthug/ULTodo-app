@@ -14,7 +14,7 @@ export function SettingsPage() {
   }
 
   return (
-    <div className="px-5 pb-8 pt-6">
+    <div className="px-5 pb-8 pt-6 lg:mx-auto lg:max-w-2xl lg:px-8 lg:pt-10">
       <section className="mb-5">
         <p className="mb-2 font-mono text-[10px] uppercase tracking-[.12em] text-ink-3">{t('settings.eyebrow')}</p>
         <h1 className="font-serif text-[38px] italic leading-[.95] tracking-[-.05em] text-ink">{t('settings.title')}</h1>

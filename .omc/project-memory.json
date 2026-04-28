@@ -1,0 +1,371 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1777348431652,
+  "projectRoot": "/Users/home/Desktop/0426/ULTodo-app",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      },
+      {
+        "name": "TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "tsconfig.json"
+        ]
+      }
+    ],
+    "frameworks": [
+      {
+        "name": "react",
+        "version": "19.2.5",
+        "category": "frontend"
+      },
+      {
+        "name": "react-dom",
+        "version": "19.2.5",
+        "category": "frontend"
+      },
+      {
+        "name": "vite",
+        "version": "8.0.10",
+        "category": "build"
+      },
+      {
+        "name": "vitest",
+        "version": "4.1.5",
+        "category": "testing"
+      }
+    ],
+    "packageManager": "npm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": "npm run build",
+    "testCommand": "npm test",
+    "lintCommand": "npm run lint",
+    "devCommand": "npm run dev",
+    "scripts": {
+      "dev": "vite",
+      "build": "tsc -b && vite build",
+      "lint": "eslint .",
+      "preview": "vite preview",
+      "test": "vitest",
+      "test:run": "vitest run"
+    }
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": "feature-based"
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "public",
+      "src"
+    ],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "dist": {
+      "path": "dist",
+      "purpose": "Distribution/build output",
+      "fileCount": 3,
+      "lastAccessed": 1777348431636,
+      "keyFiles": [
+        "favicon.svg",
+        "icons.svg",
+        "index.html"
+      ]
+    },
+    "public": {
+      "path": "public",
+      "purpose": "Public files",
+      "fileCount": 2,
+      "lastAccessed": 1777348431637,
+      "keyFiles": [
+        "favicon.svg",
+        "icons.svg"
+      ]
+    },
+    "src": {
+      "path": "src",
+      "purpose": "Source code",
+      "fileCount": 2,
+      "lastAccessed": 1777348431639,
+      "keyFiles": [
+        "index.css",
+        "main.tsx"
+      ]
+    },
+    "dist/assets": {
+      "path": "dist/assets",
+      "purpose": "Static assets",
+      "fileCount": 2,
+      "lastAccessed": 1777348431639,
+      "keyFiles": [
+        "index-0nhrqGO5.css",
+        "index-BhfI8pLm.js"
+      ]
+    },
+    "src/app": {
+      "path": "src/app",
+      "purpose": "Application code",
+      "fileCount": 3,
+      "lastAccessed": 1777348431640,
+      "keyFiles": [
+        "App.tsx",
+        "providers.tsx",
+        "router.tsx"
+      ]
+    },
+    "src/components": {
+      "path": "src/components",
+      "purpose": "UI components",
+      "fileCount": 0,
+      "lastAccessed": 1777348431640,
+      "keyFiles": []
+    },
+    "src/data": {
+      "path": "src/data",
+      "purpose": "Data files",
+      "fileCount": 2,
+      "lastAccessed": 1777348431640,
+      "keyFiles": [
+        "quadrants.ts",
+        "seed.ts"
+      ]
+    },
+    "src/lib": {
+      "path": "src/lib",
+      "purpose": "Library code",
+      "fileCount": 3,
+      "lastAccessed": 1777348431640,
+      "keyFiles": [
+        "dates.ts",
+        "ids.ts",
+        "utils.ts"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "src/pages/MatrixPage.tsx",
+      "accessCount": 13,
+      "lastAccessed": 1777351300855,
+      "type": "file"
+    },
+    {
+      "path": "src/components/app-shell/AppShell.tsx",
+      "accessCount": 13,
+      "lastAccessed": 1777351471902,
+      "type": "file"
+    },
+    {
+      "path": "src/pages/BrainDumpPage.tsx",
+      "accessCount": 11,
+      "lastAccessed": 1777351301314,
+      "type": "file"
+    },
+    {
+      "path": "src/pages/PomodoroPage.tsx",
+      "accessCount": 11,
+      "lastAccessed": 1777351301832,
+      "type": "file"
+    },
+    {
+      "path": "src/pages/TodayPage.tsx",
+      "accessCount": 11,
+      "lastAccessed": 1777351439431,
+      "type": "file"
+    },
+    {
+      "path": "src/components/task/QuickAddSheet.tsx",
+      "accessCount": 10,
+      "lastAccessed": 1777351308458,
+      "type": "file"
+    },
+    {
+      "path": "src/pages/SettingsPage.tsx",
+      "accessCount": 9,
+      "lastAccessed": 1777351302189,
+      "type": "file"
+    },
+    {
+      "path": "src/components/matrix/MatrixQuadrant.tsx",
+      "accessCount": 8,
+      "lastAccessed": 1777351309687,
+      "type": "file"
+    },
+    {
+      "path": "src/components/settings/MenuSheet.tsx",
+      "accessCount": 7,
+      "lastAccessed": 1777350889307,
+      "type": "file"
+    },
+    {
+      "path": "src/components/task/TaskDetailSheet.tsx",
+      "accessCount": 7,
+      "lastAccessed": 1777351308747,
+      "type": "file"
+    },
+    {
+      "path": "src/components/settings/FilterSheet.tsx",
+      "accessCount": 7,
+      "lastAccessed": 1777351309282,
+      "type": "file"
+    },
+    {
+      "path": "src/components/app-shell/BottomNav.tsx",
+      "accessCount": 7,
+      "lastAccessed": 1777351357520,
+      "type": "file"
+    },
+    {
+      "path": "src/i18n/locales/en.json",
+      "accessCount": 5,
+      "lastAccessed": 1777350907701,
+      "type": "file"
+    },
+    {
+      "path": "src/i18n/locales/ko.json",
+      "accessCount": 5,
+      "lastAccessed": 1777350907885,
+      "type": "file"
+    },
+    {
+      "path": "src/features/tasks/task-store.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1777351307394,
+      "type": "file"
+    },
+    {
+      "path": "src/components/task/TaskDetailPanel.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1777351432834,
+      "type": "file"
+    },
+    {
+      "path": "src/components/task/QuickAddForm.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1777351452101,
+      "type": "file"
+    },
+    {
+      "path": "src/app/router.tsx",
+      "accessCount": 4,
+      "lastAccessed": 1777350221973,
+      "type": "file"
+    },
+    {
+      "path": "src/components/app-shell/AppBar.tsx",
+      "accessCount": 4,
+      "lastAccessed": 1777350890454,
+      "type": "file"
+    },
+    {
+      "path": "src/index.css",
+      "accessCount": 4,
+      "lastAccessed": 1777350892322,
+      "type": "file"
+    },
+    {
+      "path": "src/components/app-shell/Sidebar.tsx",
+      "accessCount": 4,
+      "lastAccessed": 1777351456566,
+      "type": "file"
+    },
+    {
+      "path": "src/styles/tokens.css",
+      "accessCount": 3,
+      "lastAccessed": 1777350246475,
+      "type": "file"
+    },
+    {
+      "path": "src/hooks/use-media-query.ts",
+      "accessCount": 3,
+      "lastAccessed": 1777351292948,
+      "type": "file"
+    },
+    {
+      "path": "src/components/settings/FilterChips.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1777351294526,
+      "type": "file"
+    },
+    {
+      "path": "src/app/providers.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1777350067032,
+      "type": "file"
+    },
+    {
+      "path": "src/components/ui/button.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1777351045577,
+      "type": "file"
+    },
+    {
+      "path": "package.json",
+      "accessCount": 1,
+      "lastAccessed": 1777348482482,
+      "type": "file"
+    },
+    {
+      "path": "vite.config.ts",
+      "accessCount": 1,
+      "lastAccessed": 1777348482670,
+      "type": "file"
+    },
+    {
+      "path": "index.html",
+      "accessCount": 1,
+      "lastAccessed": 1777348488580,
+      "type": "file"
+    },
+    {
+      "path": "src/app/App.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1777348489125,
+      "type": "file"
+    },
+    {
+      "path": "src/main.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1777348489534,
+      "type": "file"
+    },
+    {
+      "path": "src/components/task/TaskCard.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1777348501967,
+      "type": "file"
+    },
+    {
+      "path": "src/components/ui/card.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1777348505260,
+      "type": "file"
+    },
+    {
+      "path": "src/i18n/index.ts",
+      "accessCount": 1,
+      "lastAccessed": 1777350230348,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

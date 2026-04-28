@@ -7,7 +7,7 @@ import { MatrixTaskChip } from './MatrixTaskChip'
 export function MatrixQuadrant({ quadrant, tasks, onOpen }: { quadrant: Quadrant; tasks: Task[]; onOpen: (task: Task) => void }) {
   const { setNodeRef, isOver } = useDroppable({ id: quadrant.id })
   return (
-    <motion.div layout ref={setNodeRef} className={`min-h-[178px] rounded-[18px] border p-3 transition ${quadrant.tone} ${isOver ? 'ring-2 ring-accent' : ''}`}>
+    <motion.div layout ref={setNodeRef} className={`min-h-[178px] overflow-hidden rounded-[18px] border p-3 transition lg:min-w-0 ${quadrant.tone} ${isOver ? 'ring-2 ring-accent' : ''}`}>
       <div className="mb-3 flex items-start justify-between gap-2">
         <div><h3 className="text-sm font-bold tracking-[-.02em] text-ink">{quadrant.label}</h3><p className="font-mono text-[9px] uppercase tracking-[.08em] text-ink-4">{quadrant.hint}</p></div>
         <span className="font-mono text-[10px] text-ink-4">{tasks.length}</span>

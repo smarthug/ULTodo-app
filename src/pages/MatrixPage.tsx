@@ -4,6 +4,7 @@ import { useOutletContext } from 'react-router'
 import { motion } from 'motion/react'
 import { QLIST } from '@/data/quadrants'
 import type { OutletContext } from '@/components/app-shell/AppShell'
+import { FilterChips } from '@/components/settings/FilterChips'
 import { MatrixQuadrant } from '@/components/matrix/MatrixQuadrant'
 import { MatrixTaskChip } from '@/components/matrix/MatrixTaskChip'
 import { useTaskStore } from '@/features/tasks/task-store'
@@ -25,7 +26,7 @@ function InboxDrop({ tasks, onOpen }: { tasks: Task[]; onOpen: (task: Task) => v
 
 export function MatrixPage() {
   const store = useTaskStore()
-  const { openTask } = useOutletContext<OutletContext>()
+  const { openTask, isDesktop } = useOutletContext<OutletContext>()
   const [activeId, setActiveId] = useState<string | null>(null)
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }), useSensor(TouchSensor, { activationConstraint: { delay: 120, tolerance: 8 } }))
   const scoped = useMemo(() => filterTasks(store.tasks, { projectId: store.settings.activeProjectId, tagIds: store.settings.activeTagIds, done: false }), [store.tasks, store.settings])
@@ -43,19 +44,26 @@ export function MatrixPage() {
   }
 
   return (
-    <div className="px-4 pb-8 pt-5">
-      <section className="mb-4">
-        <p className="mb-2 font-mono text-[10px] uppercase tracking-[.12em] text-ink-3">Matrix · drag-to-triage</p>
-        <h1 className="font-serif text-[34px] italic leading-[.98] tracking-[-.04em] text-ink">Make priority<br/><span className="text-accent">feel physical.</span></h1>
-      </section>
-      <DndContext sensors={sensors} onDragStart={onDragStart} onDragEnd={onDragEnd}>
-        <motion.div layout className="grid grid-cols-2 gap-3">
-          {QLIST.map((quadrant) => <MatrixQuadrant key={quadrant.id} quadrant={quadrant} tasks={byQuadrant(quadrant.id)} onOpen={openTask} />)}
-        </motion.div>
-        <div className="mt-3"><InboxDrop tasks={inbox} onOpen={openTask} /></div>
-        <DragOverlay>{activeTask ? <div className="w-48"><MatrixTaskChip task={activeTask} onOpen={() => undefined} /></div> : null}</DragOverlay>
-      </DndContext>
-      <p className="mt-3 text-center text-[11px] leading-relaxed text-ink-4">Tip: double-click a chip to open fallback move controls.</p>
+    <div className="pb-8">
+      {isDesktop ? (
+        <div className="border-b border-[var(--hair)] bg-paper px-5 py-3">
+          <FilterChips layout="inline" />
+        </div>
+      ) : null}
+      <div className="px-4 pt-5">
+        <section className="mb-4">
+          <p className="mb-2 font-mono text-[10px] uppercase tracking-[.12em] text-ink-3">Matrix · drag-to-triage</p>
+          <h1 className="font-serif text-[34px] italic leading-[.98] tracking-[-.04em] text-ink">Make priority<br/><span className="text-accent">feel physical.</span></h1>
+        </section>
+        <DndContext sensors={sensors} onDragStart={onDragStart} onDragEnd={onDragEnd}>
+          <motion.div layout={!isDesktop} className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:grid-rows-1">
+            {QLIST.map((quadrant) => <MatrixQuadrant key={quadrant.id} quadrant={quadrant} tasks={byQuadrant(quadrant.id)} onOpen={openTask} />)}
+          </motion.div>
+          <div className="mt-3"><InboxDrop tasks={inbox} onOpen={openTask} /></div>
+          <DragOverlay>{activeTask ? <div className="w-48 lg:w-36"><MatrixTaskChip task={activeTask} onOpen={() => undefined} /></div> : null}</DragOverlay>
+        </DndContext>
+        <p className="mt-3 text-center text-[11px] leading-relaxed text-ink-4">Tip: double-click a chip to open fallback move controls.</p>
+      </div>
     </div>
   )
 }

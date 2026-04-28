@@ -1,0 +1,7 @@
+{
+  "tool_name": "mcp__plugin_oh-my-claudecode_t__lsp_diagnostics",
+  "tool_input_preview": "{\"file\":\"/Users/home/Desktop/0426/ULTodo-app/src/components/settings/MenuSheet.tsx\",\"severity\":\"error\"}",
+  "error": "Language server 'typescript-language-server' not found.\nInstall with: npm install -g typescript-language-server typescript",
+  "timestamp": "2026-04-28T04:42:07.042Z",
+  "retry_count": 13
+}
