@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Play, X, Inbox } from 'lucide-react'
+import { X, Inbox } from 'lucide-react'
 import { QLIST } from '@/data/quadrants'
 import { useTaskStore } from '@/features/tasks/task-store'
 import type { QuadrantId, Task } from '@/features/tasks/task-types'
@@ -10,11 +10,10 @@ import { QuickAddForm } from './QuickAddForm'
 interface Props {
   task: Task | null
   onClose?: () => void
-  onFocus: (task: Task) => void
   variant?: 'sheet' | 'inline'
 }
 
-export function TaskDetailPanel({ task, onClose, onFocus, variant = 'sheet' }: Props) {
+export function TaskDetailPanel({ task, onClose, variant = 'sheet' }: Props) {
   const store = useTaskStore()
   const [editing, setEditing] = useState(false)
 
@@ -58,7 +57,7 @@ export function TaskDetailPanel({ task, onClose, onFocus, variant = 'sheet' }: P
       {task.note ? (
         <p className="mb-4 rounded-2xl bg-paper-2 p-3 text-sm leading-relaxed text-ink-2">{task.note}</p>
       ) : null}
-      <div className="mb-4 grid grid-cols-3 gap-2">
+      <div className="mb-4 grid grid-cols-2 gap-2">
         <Button
           variant={task.focus ? 'dark' : 'soft'}
           onClick={() => store.patchTask(task.id, { focus: !task.focus })}
@@ -68,7 +67,6 @@ export function TaskDetailPanel({ task, onClose, onFocus, variant = 'sheet' }: P
         <Button variant="soft" onClick={() => store.patchTask(task.id, { done: !task.done })}>
           {task.done ? 'Undo' : 'Done'}
         </Button>
-        <Button onClick={() => onFocus(task)}><Play size={15} />Start</Button>
       </div>
       <div className="mb-4">
         <div className="mb-2 flex items-baseline justify-between">

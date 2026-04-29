@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router'
+import { Outlet, useLocation } from 'react-router'
 import { motion } from 'motion/react'
 import { useTaskStore } from '@/features/tasks/task-store'
 import type { Task } from '@/features/tasks/task-types'
@@ -14,7 +14,6 @@ import { MenuSheet } from '@/components/settings/MenuSheet'
 
 export interface OutletContext {
   openTask: (task: Task) => void
-  startFocus: (task: Task) => void
   isDesktop: boolean
   selectedTask: Task | null
   setSelectedTask: (task: Task | null) => void
@@ -24,7 +23,6 @@ export interface OutletContext {
 
 export function AppShell() {
   const store = useTaskStore()
-  const navigate = useNavigate()
   const location = useLocation()
   const isDesktop = useIsDesktop()
   const [quickAddOpen, setQuickAddOpen] = useState(false)
@@ -38,12 +36,6 @@ export function AppShell() {
     setSelectedTask(null)
     setQuickAddInline(false)
   }, [location.pathname])
-
-  const startFocus = (task: Task) => {
-    setDetailTask(null)
-    setSelectedTask(null)
-    navigate('/pomo', { state: { taskId: task.id } })
-  }
 
   const openTask = (task: Task) => {
     if (isDesktop) {
@@ -70,7 +62,6 @@ export function AppShell() {
             <Outlet
               context={{
                 openTask,
-                startFocus,
                 isDesktop,
                 selectedTask,
                 setSelectedTask,
@@ -95,7 +86,6 @@ export function AppShell() {
           <Outlet
             context={{
               openTask,
-              startFocus,
               isDesktop,
               selectedTask,
               setSelectedTask,
@@ -108,7 +98,7 @@ export function AppShell() {
         <QuickAddSheet open={quickAddOpen} onClose={() => setQuickAddOpen(false)} />
         <FilterSheet open={filterOpen} onClose={() => setFilterOpen(false)} />
         <MenuSheet open={menuOpen} onClose={() => setMenuOpen(false)} />
-        <TaskDetailSheet task={detailTask} onClose={() => setDetailTask(null)} onFocus={startFocus} />
+        <TaskDetailSheet task={detailTask} onClose={() => setDetailTask(null)} />
       </motion.div>
     </div>
   )

@@ -1,4 +1,4 @@
-import { Minus, Plus, Play, X } from 'lucide-react'
+import { Minus, Plus, X } from 'lucide-react'
 import { useMemo } from 'react'
 import { useOutletContext } from 'react-router'
 import type { OutletContext } from '@/components/app-shell/AppShell'
@@ -15,7 +15,6 @@ export function TodayPage() {
   const store = useTaskStore()
   const {
     openTask,
-    startFocus,
     isDesktop,
     selectedTask,
     setSelectedTask,
@@ -55,17 +54,15 @@ export function TodayPage() {
   const list = (
     <div className="flex flex-col gap-3 px-4">
       {today.map((task, index) => (
-        <div key={task.id} className="relative">
-          <TaskCard
-            task={task}
-            project={project(task)}
-            tags={taskTags(task)}
-            onToggle={() => store.toggleTask(task.id)}
-            onOpen={() => openTask(task)}
-            accent={index === 0 || task.quadrant === 'ui'}
-          />
-          <Button size="sm" className="absolute bottom-3 right-3" onClick={() => startFocus(task)}><Play size={13} />Start</Button>
-        </div>
+        <TaskCard
+          key={task.id}
+          task={task}
+          project={project(task)}
+          tags={taskTags(task)}
+          onToggle={() => store.toggleTask(task.id)}
+          onOpen={() => openTask(task)}
+          accent={index === 0 || task.quadrant === 'ui'}
+        />
       ))}
       {!today.length ? (
         <div className="rounded-[22px] border border-dashed border-[var(--hair-2)] bg-paper p-8 text-center text-sm text-ink-3">
@@ -104,7 +101,6 @@ export function TodayPage() {
           <TaskDetailPanel
             task={store.tasks.find((t) => t.id === selectedTask?.id) ?? null}
             onClose={() => setSelectedTask(null)}
-            onFocus={startFocus}
             variant="inline"
           />
         </aside>

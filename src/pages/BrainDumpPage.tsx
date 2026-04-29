@@ -21,7 +21,6 @@ export function BrainDumpPage() {
     setQuickAddInline,
     selectedTask,
     setSelectedTask,
-    startFocus,
   } = useOutletContext<OutletContext>()
   const [view, setView] = useState(store.settings.brainView)
   const [search, setSearch] = useState('')
@@ -89,7 +88,6 @@ export function BrainDumpPage() {
           <TaskDetailPanel
             task={store.tasks.find((t) => t.id === selectedTask?.id) ?? null}
             onClose={() => setSelectedTask(null)}
-            onFocus={startFocus}
             variant="inline"
           />
         </aside>

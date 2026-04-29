@@ -163,9 +163,21 @@
   },
   "hotPaths": [
     {
+      "path": "src/components/app-shell/AppShell.tsx",
+      "accessCount": 21,
+      "lastAccessed": 1777459186217,
+      "type": "file"
+    },
+    {
       "path": "src/pages/BrainDumpPage.tsx",
-      "accessCount": 14,
-      "lastAccessed": 1777428591122,
+      "accessCount": 17,
+      "lastAccessed": 1777459227726,
+      "type": "file"
+    },
+    {
+      "path": "src/pages/TodayPage.tsx",
+      "accessCount": 15,
+      "lastAccessed": 1777459108606,
       "type": "file"
     },
     {
@@ -175,21 +187,9 @@
       "type": "file"
     },
     {
-      "path": "src/components/app-shell/AppShell.tsx",
-      "accessCount": 13,
-      "lastAccessed": 1777351471902,
-      "type": "file"
-    },
-    {
       "path": "src/pages/PomodoroPage.tsx",
-      "accessCount": 11,
-      "lastAccessed": 1777351301832,
-      "type": "file"
-    },
-    {
-      "path": "src/pages/TodayPage.tsx",
-      "accessCount": 11,
-      "lastAccessed": 1777351439431,
+      "accessCount": 12,
+      "lastAccessed": 1777459202819,
       "type": "file"
     },
     {
@@ -211,6 +211,18 @@
       "type": "file"
     },
     {
+      "path": "src/components/task/TaskDetailPanel.tsx",
+      "accessCount": 9,
+      "lastAccessed": 1777459127449,
+      "type": "file"
+    },
+    {
+      "path": "src/components/task/TaskDetailSheet.tsx",
+      "accessCount": 9,
+      "lastAccessed": 1777459135576,
+      "type": "file"
+    },
+    {
       "path": "src/components/matrix/MatrixQuadrant.tsx",
       "accessCount": 8,
       "lastAccessed": 1777351309687,
@@ -220,12 +232,6 @@
       "path": "src/components/settings/MenuSheet.tsx",
       "accessCount": 7,
       "lastAccessed": 1777350889307,
-      "type": "file"
-    },
-    {
-      "path": "src/components/task/TaskDetailSheet.tsx",
-      "accessCount": 7,
-      "lastAccessed": 1777351308747,
       "type": "file"
     },
     {
@@ -256,12 +262,6 @@
       "path": "src/i18n/locales/ko.json",
       "accessCount": 6,
       "lastAccessed": 1777431289086,
-      "type": "file"
-    },
-    {
-      "path": "src/components/task/TaskDetailPanel.tsx",
-      "accessCount": 6,
-      "lastAccessed": 1777432004305,
       "type": "file"
     },
     {
