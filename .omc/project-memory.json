@@ -419,6 +419,12 @@
       "accessCount": 1,
       "lastAccessed": 1777434564193,
       "type": "file"
+    },
+    {
+      "path": "public/favicon.svg",
+      "accessCount": 1,
+      "lastAccessed": 1777460583011,
+      "type": "file"
     }
   ],
   "userDirectives": []

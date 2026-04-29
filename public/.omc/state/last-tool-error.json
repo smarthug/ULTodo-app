@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"ls -la /Users/home/Desktop/0426/ULTodo-app/pwa-*.png /Users/home/Desktop/0426/ULTodo-app/apple-touch-icon.png 2>/dev/null && echo '---' && mv /Users/home/Desktop/0426/ULTodo-app/pwa-192x19...",
+  "error": "Exit code 1\n(eval):1: no matches found: /Users/home/Desktop/0426/ULTodo-app/pwa-*.png",
+  "timestamp": "2026-04-29T11:04:57.117Z",
+  "retry_count": 1
+}
