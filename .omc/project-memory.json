@@ -389,6 +389,36 @@
       "accessCount": 1,
       "lastAccessed": 1777431191028,
       "type": "file"
+    },
+    {
+      "path": "README.md",
+      "accessCount": 1,
+      "lastAccessed": 1777433980403,
+      "type": "file"
+    },
+    {
+      "path": "docs/OVERVIEW.md",
+      "accessCount": 1,
+      "lastAccessed": 1777434210221,
+      "type": "file"
+    },
+    {
+      "path": "docs/OVERVIEW.ko.md",
+      "accessCount": 1,
+      "lastAccessed": 1777434284917,
+      "type": "file"
+    },
+    {
+      "path": "docs/PRD.md",
+      "accessCount": 1,
+      "lastAccessed": 1777434398470,
+      "type": "file"
+    },
+    {
+      "path": "docs/PRD.ko.md",
+      "accessCount": 1,
+      "lastAccessed": 1777434564193,
+      "type": "file"
     }
   ],
   "userDirectives": []
