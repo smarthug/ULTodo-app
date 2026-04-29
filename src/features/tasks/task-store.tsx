@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import i18n from '@/i18n'
 import { bootstrapDatabase } from '@/db/bootstrap'
-import { createTag, createTask, deleteTask, patchSettings, readAll, updateTask } from '@/db/repositories'
+import { archiveProject as archiveProjectRepo, createProject, createTag, createTask, deleteTask, patchSettings, readAll, replaceProject, updateTask } from '@/db/repositories'
 import { DEFAULT_SETTINGS, type Settings } from '@/features/settings/settings-types'
 import type { Project, Tag, Task, TaskDraft } from './task-types'
 
@@ -17,6 +17,9 @@ interface TaskStoreValue {
   removeTask: (id: string) => Promise<void>
   toggleTask: (id: string) => Promise<void>
   addTag: (name: string) => Promise<Tag>
+  addProject: (name: string, color: string) => Promise<Project>
+  renameProject: (id: string, patch: { name?: string; color?: string }) => Promise<Project>
+  archiveProject: (id: string) => Promise<void>
   setSettings: (patch: Partial<Settings>) => Promise<Settings>
 }
 
@@ -75,6 +78,34 @@ export function TaskStoreProvider({ children }: { children: ReactNode }) {
     return tag
   }, [reload])
 
+  const addProject = useCallback(async (name: string, color: string) => {
+    const project = await createProject(name, color)
+    await patchSettings({ activeProjectId: project.id })
+    await reload()
+    return project
+  }, [reload])
+
+  const renameProject = useCallback(async (id: string, patch: { name?: string; color?: string }) => {
+    const current = projects.find((p) => p.id === id)
+    if (!current) throw new Error(`Project ${id} not found`)
+    const next: Project = {
+      ...current,
+      ...(patch.name !== undefined ? { name: patch.name.trim() || current.name } : {}),
+      ...(patch.color !== undefined ? { color: patch.color } : {}),
+    }
+    const saved = await replaceProject(next)
+    await reload()
+    return saved
+  }, [projects, reload])
+
+  const archiveProject = useCallback(async (id: string) => {
+    await archiveProjectRepo(id)
+    if (settings.activeProjectId === id) {
+      await patchSettings({ activeProjectId: 'all' })
+    }
+    await reload()
+  }, [reload, settings.activeProjectId])
+
   const setSettings = useCallback(async (patch: Partial<Settings>) => {
     const next = await patchSettings(patch)
     if (patch.language && i18n.language !== patch.language) await i18n.changeLanguage(patch.language)
@@ -94,8 +125,11 @@ export function TaskStoreProvider({ children }: { children: ReactNode }) {
     removeTask,
     toggleTask,
     addTag,
+    addProject,
+    renameProject,
+    archiveProject,
     setSettings,
-  }), [ready, tasks, projects, tags, settings, reload, addTask, patchTask, removeTask, toggleTask, addTag, setSettings])
+  }), [ready, tasks, projects, tags, settings, reload, addTask, patchTask, removeTask, toggleTask, addTag, addProject, renameProject, archiveProject, setSettings])
 
   return <TaskStoreContext.Provider value={value}>{children}</TaskStoreContext.Provider>
 }

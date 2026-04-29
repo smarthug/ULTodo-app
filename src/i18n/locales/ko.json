@@ -15,7 +15,16 @@
     "focusMinutes": "집중 시간",
     "breakMinutes": "휴식 시간",
     "scope": "범위",
-    "scopeHint": "프로젝트와 태그 필터는 상단 범위 시트에서 관리합니다."
+    "scopeHint": "프로젝트와 태그 필터는 상단 범위 시트에서 관리합니다.",
+    "projects": "프로젝트",
+    "projectsHint": "프로젝트별로 태스크를 묶습니다. Personal은 기본 프로젝트로, 보관할 수 없습니다.",
+    "projectAdd": "+ 새 프로젝트",
+    "projectName": "프로젝트 이름",
+    "projectColor": "색상",
+    "projectSave": "저장",
+    "projectCancel": "취소",
+    "projectArchive": "보관",
+    "projectEdit": "수정"
   },
   "common": { "minutes": "분" }
 }

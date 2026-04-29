@@ -71,14 +71,16 @@ export function TaskDetailPanel({ task, onClose, onFocus, variant = 'sheet' }: P
         <Button onClick={() => onFocus(task)}><Play size={15} />Start</Button>
       </div>
       <div className="mb-4">
-        <p className="mb-2 font-mono text-[10px] uppercase tracking-[.12em] text-ink-3">Move without dragging</p>
+        <div className="mb-2 flex items-baseline justify-between">
+          <p className="font-mono text-[10px] uppercase tracking-[.12em] text-ink-3">Move without dragging</p>
+          <p className="font-mono text-[10px] text-ink-4">unselected → Inbox</p>
+        </div>
         <div className="grid grid-cols-2 gap-2">
-          <Button variant="soft" onClick={() => move(null)}>Inbox</Button>
           {QLIST.map((q) => (
             <Button
               key={q.id}
               variant={task.quadrant === q.id ? 'default' : 'soft'}
-              onClick={() => move(q.id)}
+              onClick={() => move(task.quadrant === q.id ? null : q.id)}
             >
               {q.label}
             </Button>

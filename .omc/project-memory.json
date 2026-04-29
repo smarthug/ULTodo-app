@@ -163,6 +163,12 @@
   },
   "hotPaths": [
     {
+      "path": "src/pages/BrainDumpPage.tsx",
+      "accessCount": 14,
+      "lastAccessed": 1777428591122,
+      "type": "file"
+    },
+    {
       "path": "src/pages/MatrixPage.tsx",
       "accessCount": 13,
       "lastAccessed": 1777351300855,
@@ -172,12 +178,6 @@
       "path": "src/components/app-shell/AppShell.tsx",
       "accessCount": 13,
       "lastAccessed": 1777351471902,
-      "type": "file"
-    },
-    {
-      "path": "src/pages/BrainDumpPage.tsx",
-      "accessCount": 11,
-      "lastAccessed": 1777351301314,
       "type": "file"
     },
     {
@@ -193,15 +193,21 @@
       "type": "file"
     },
     {
+      "path": "src/pages/SettingsPage.tsx",
+      "accessCount": 11,
+      "lastAccessed": 1777431332378,
+      "type": "file"
+    },
+    {
       "path": "src/components/task/QuickAddSheet.tsx",
       "accessCount": 10,
       "lastAccessed": 1777351308458,
       "type": "file"
     },
     {
-      "path": "src/pages/SettingsPage.tsx",
+      "path": "src/features/tasks/task-store.tsx",
       "accessCount": 9,
-      "lastAccessed": 1777351302189,
+      "lastAccessed": 1777431345841,
       "type": "file"
     },
     {
@@ -235,33 +241,27 @@
       "type": "file"
     },
     {
+      "path": "src/components/task/QuickAddForm.tsx",
+      "accessCount": 7,
+      "lastAccessed": 1777431275151,
+      "type": "file"
+    },
+    {
       "path": "src/i18n/locales/en.json",
-      "accessCount": 5,
-      "lastAccessed": 1777350907701,
+      "accessCount": 6,
+      "lastAccessed": 1777431283369,
       "type": "file"
     },
     {
       "path": "src/i18n/locales/ko.json",
-      "accessCount": 5,
-      "lastAccessed": 1777350907885,
-      "type": "file"
-    },
-    {
-      "path": "src/features/tasks/task-store.tsx",
-      "accessCount": 5,
-      "lastAccessed": 1777351307394,
+      "accessCount": 6,
+      "lastAccessed": 1777431289086,
       "type": "file"
     },
     {
       "path": "src/components/task/TaskDetailPanel.tsx",
-      "accessCount": 5,
-      "lastAccessed": 1777351432834,
-      "type": "file"
-    },
-    {
-      "path": "src/components/task/QuickAddForm.tsx",
-      "accessCount": 5,
-      "lastAccessed": 1777351452101,
+      "accessCount": 6,
+      "lastAccessed": 1777432004305,
       "type": "file"
     },
     {
@@ -289,6 +289,12 @@
       "type": "file"
     },
     {
+      "path": "src/components/settings/FilterChips.tsx",
+      "accessCount": 4,
+      "lastAccessed": 1777431259405,
+      "type": "file"
+    },
+    {
       "path": "src/styles/tokens.css",
       "accessCount": 3,
       "lastAccessed": 1777350246475,
@@ -301,12 +307,6 @@
       "type": "file"
     },
     {
-      "path": "src/components/settings/FilterChips.tsx",
-      "accessCount": 3,
-      "lastAccessed": 1777351294526,
-      "type": "file"
-    },
-    {
       "path": "src/app/providers.tsx",
       "accessCount": 2,
       "lastAccessed": 1777350067032,
@@ -316,6 +316,12 @@
       "path": "src/components/ui/button.tsx",
       "accessCount": 2,
       "lastAccessed": 1777351045577,
+      "type": "file"
+    },
+    {
+      "path": "src/db/repositories.ts",
+      "accessCount": 2,
+      "lastAccessed": 1777431219143,
       "type": "file"
     },
     {
@@ -364,6 +370,24 @@
       "path": "src/i18n/index.ts",
       "accessCount": 1,
       "lastAccessed": 1777350230348,
+      "type": "file"
+    },
+    {
+      "path": "src/features/tasks/task-types.ts",
+      "accessCount": 1,
+      "lastAccessed": 1777431185451,
+      "type": "file"
+    },
+    {
+      "path": "src/data/seed.ts",
+      "accessCount": 1,
+      "lastAccessed": 1777431190769,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/ids.ts",
+      "accessCount": 1,
+      "lastAccessed": 1777431191028,
       "type": "file"
     }
   ],

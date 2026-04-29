@@ -15,7 +15,16 @@
     "focusMinutes": "Focus minutes",
     "breakMinutes": "Break minutes",
     "scope": "Scope",
-    "scopeHint": "Project and tag filters still live in the top scope sheet."
+    "scopeHint": "Project and tag filters still live in the top scope sheet.",
+    "projects": "Projects",
+    "projectsHint": "Group tasks by project. Personal is the default and cannot be archived.",
+    "projectAdd": "+ New project",
+    "projectName": "Project name",
+    "projectColor": "Color",
+    "projectSave": "Save",
+    "projectCancel": "Cancel",
+    "projectArchive": "Archive",
+    "projectEdit": "Edit"
   },
   "common": { "minutes": "min" }
 }

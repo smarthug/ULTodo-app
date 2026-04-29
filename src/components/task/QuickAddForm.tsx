@@ -27,7 +27,7 @@ export function QuickAddForm({ editingTask, onSubmit, onDelete, onClose, variant
   const [newTag, setNewTag] = useState('')
 
   const projectOptions = useMemo(
-    () => store.projects.filter((project) => project.id !== 'all'),
+    () => store.projects.filter((project) => project.id !== 'all' && !project.archived),
     [store.projects],
   )
 
@@ -128,20 +128,16 @@ export function QuickAddForm({ editingTask, onSubmit, onDelete, onClose, variant
       </div>
 
       <div className="mt-4">
-        <div className="mb-2 text-xs font-semibold uppercase tracking-[.08em] text-ink-3">Priority</div>
+        <div className="mb-2 flex items-baseline justify-between">
+          <span className="text-xs font-semibold uppercase tracking-[.08em] text-ink-3">Priority</span>
+          <span className="font-mono text-[10px] text-ink-4">unselected → Inbox</span>
+        </div>
         <div className="grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            onClick={() => setQuadrant(null)}
-            className={`rounded-2xl border p-3 text-left text-xs ${quadrant === null ? 'border-accent bg-accent-soft' : 'border-[var(--hair)] bg-paper-2'}`}
-          >
-            Inbox<br/><span className="text-ink-3">Untriaged</span>
-          </button>
           {QLIST.map((q) => (
             <button
               key={q.id}
               type="button"
-              onClick={() => setQuadrant(q.id)}
+              onClick={() => setQuadrant((prev) => (prev === q.id ? null : q.id))}
               className={`rounded-2xl border p-3 text-left text-xs ${quadrant === q.id ? 'border-accent bg-accent-soft' : 'border-[var(--hair)] bg-paper-2'}`}
             >
               {q.label}<br/><span className="text-ink-3">{q.hint}</span>

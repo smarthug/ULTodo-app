@@ -83,3 +83,32 @@ export async function replaceProject(project: Project) {
   await db.put('projects', project)
   return project
 }
+
+export async function createProject(name: string, color: string) {
+  const trimmed = name.trim()
+  if (!trimmed) throw new Error('Project name required')
+  const db = await getDb()
+  const baseSlug = slugify(trimmed) || `project-${Date.now()}`
+  let id = baseSlug === 'all' ? `${baseSlug}-1` : baseSlug
+  let suffix = 1
+  while (await db.get('projects', id)) {
+    suffix += 1
+    id = `${baseSlug}-${suffix}`
+  }
+  const projects = await db.getAll('projects')
+  const order = projects.reduce((max, p) => Math.max(max, p.order), 0) + 1
+  const project: Project = { id, name: trimmed, color, order }
+  await db.put('projects', project)
+  return project
+}
+
+export async function archiveProject(id: string) {
+  if (id === 'personal') throw new Error('The personal project cannot be archived')
+  if (id === 'all') throw new Error('The all sentinel cannot be archived')
+  const db = await getDb()
+  const current = await db.get('projects', id)
+  if (!current) throw new Error(`Project ${id} not found`)
+  const next: Project = { ...current, archived: true }
+  await db.put('projects', next)
+  return next
+}

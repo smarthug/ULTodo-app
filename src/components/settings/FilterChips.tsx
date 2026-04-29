@@ -20,7 +20,7 @@ export function FilterChips({ showHeading = true, layout = 'stacked' }: Props) {
       >
         All projects
       </Button>
-      {store.projects.map((project) => (
+      {store.projects.filter((project) => !project.archived).map((project) => (
         <Button
           key={project.id}
           variant={store.settings.activeProjectId === project.id ? 'default' : 'soft'}

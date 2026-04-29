@@ -20,3 +20,10 @@
 {"t":0,"agent":"a8a1b7f","agent_type":"architect","event":"agent_stop","success":true,"duration_ms":102140}
 {"t":0,"agent":"aa18da8","agent_type":"code-reviewer","event":"agent_stop","success":true,"duration_ms":143788}
 {"t":0,"agent":"a9922a1","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"system","event":"keyword_detected","keyword":"deep-interview"}
+{"t":0,"agent":"a7df900","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"system","event":"keyword_detected","keyword":"deep-interview"}
+{"t":0,"agent":"system","event":"keyword_detected","keyword":"deep-interview"}
+{"t":0,"agent":"ad4cd97","agent_type":"unknown","event":"agent_stop","success":true}
+{"t":0,"agent":"system","event":"keyword_detected","keyword":"deep-interview"}
+{"t":0,"agent":"add9131","agent_type":"unknown","event":"agent_stop","success":true}
