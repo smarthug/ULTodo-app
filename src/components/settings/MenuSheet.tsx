@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { Button } from '@/components/ui/button'
 import { useTaskStore } from '@/features/tasks/task-store'
+import { AppLogo } from '@/components/brand/AppLogo'
 
 export function MenuSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t } = useTranslation()
@@ -34,7 +35,7 @@ export function MenuSheet({ open, onClose }: { open: boolean; onClose: () => voi
         <div className="flex items-start justify-between px-5 pb-3 pt-6">
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[.12em] text-ink-3">{t('menu.eyebrow')}</p>
-            <h2 className="mt-1 font-serif text-3xl italic tracking-[-.04em] text-ink">ULTodo</h2>
+            <AppLogo className="mt-2" />
           </div>
           <Button variant="ghost" size="icon" onClick={onClose}><X size={18} /></Button>
         </div>

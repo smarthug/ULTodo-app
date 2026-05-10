@@ -2,6 +2,7 @@ import { Brain, CalendarCheck2, Grid2X2, Plus, Settings, Timer } from 'lucide-re
 import { NavLink } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { useTaskStore } from '@/features/tasks/task-store'
+import { AppLogo } from '@/components/brand/AppLogo'
 
 interface SidebarProps {
   onQuickAdd: () => void
@@ -28,7 +29,7 @@ export function Sidebar({ onQuickAdd }: SidebarProps) {
     <aside className="flex h-screen w-60 shrink-0 flex-col border-r border-[var(--hair)] bg-paper">
       <div className="px-5 pb-3 pt-6">
         <p className="font-mono text-[10px] uppercase tracking-[.12em] text-ink-3">{t('menu.eyebrow')}</p>
-        <h2 className="mt-1 font-serif text-3xl italic tracking-[-.04em] text-ink">ULTodo</h2>
+        <AppLogo className="mt-2" />
       </div>
 
       <nav className="flex-1 px-3 py-2">
