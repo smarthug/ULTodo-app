@@ -79,7 +79,7 @@ Combine these workflows in a way that respects the user's attention budget. Use 
 
 ### 5.1 Daily loop (P0 — must)
 - **US-01** As a user, I open the app and see my Today shortlist with a progress bar so I know exactly what I'm executing today.
-- **US-02** As a user, I tap `Start` on a Today task and the Pomodoro timer launches with that task's title shown beneath the countdown.
+- **US-02** As a user, I tap a Today task and see its detail panel so I can mark it focused/done, move it across quadrants, edit it, or delete it without losing context.
 - **US-03** As a user, I capture a new task in <5 seconds from any screen using the bottom-bar `+` (mobile) or sidebar Add task button (desktop).
 - **US-04** As a user, I drag a captured task from Inbox into one of four matrix quadrants to assign its priority.
 - **US-05** As a user, I mark a task done with one tap on the checkbox in any list view.
@@ -120,7 +120,7 @@ Combine these workflows in a way that respects the user's attention budget. Use 
 ### 6.2 Today page
 - Read `selectTodayTasks(tasks, settings)` for the shortlist (deterministic, capped at `settings.todayCount`)
 - Live progress bar showing completed / total
-- Each task is a `TaskCard` with `Start` button overlay
+- Each task is a clickable `TaskCard`; opening it shows the shared `TaskDetailPanel` actions
 - Focus count stepper (`Minus` / value / `Plus`) inline in the page header
 - Desktop: 3-pane layout (filter chips header + list / `TaskDetailPanel` right side)
 
@@ -143,8 +143,8 @@ Combine these workflows in a way that respects the user's attention budget. Use 
 - Configurable durations from `settings.pomodoroMinutes` and `settings.breakMinutes`
 - Circular SVG-emulated progress (clip-path on a bordered ring)
 - Mobile: 288px circle. Desktop: 384px circle.
-- If route was reached via `navigate('/pomo', { state: { taskId } })` (from a `Start` button), preload that task as the focus subject
-- Otherwise, pick the first task with `focus: true` and `done: false`
+- The timer is standalone and reads durations from `settings.pomodoroMinutes` and `settings.breakMinutes`
+- The current code does not bind a Pomodoro session to a task or persist timer state across route changes
 - Controls: Reset / Start / Pause
 
 ### 6.6 Settings page
@@ -165,12 +165,12 @@ Combine these workflows in a way that respects the user's attention budget. Use 
 ### 6.8 Task detail panel (`TaskDetailPanel`)
 - Two variants: `sheet` (mobile bottom sheet) and `inline` (desktop right-side fixed panel)
 - Inline variant shows "Select a task" empty state when no task is selected
-- Body: title, note, Focus / Done / Start buttons (3-col), Move without dragging (4-button toggle, no Inbox button), Edit task button
+- Body: title, note, Focus / Done buttons (2-col), Move without dragging (4-button toggle, no Inbox button), Edit task button
 - Edit task → opens `QuickAddForm` (sheet on mobile, inline below body on desktop)
 - Defensive lookup: `store.tasks.find(t => t.id === selectedTask?.id) ?? null` so deletion auto-clears the panel
 
 ### 6.9 Persistence
-- Single IndexedDB database `ultodo` with object stores: `tasks`, `projects`, `tags`, `settings`, `meta`
+- Single IndexedDB database `ultodo-local` with object stores: `tasks`, `projects`, `tags`, `settings`, `pomodoroSessions`, `meta`
 - `bootstrapDatabase()` seeds defaults on first load (idempotent via `meta.seededVersion`)
 - All mutations go through `repositories.ts` exports → `useTaskStore` reload → React re-render
 - No optimistic updates; everything is `await db.put → reload → setState`
@@ -220,12 +220,12 @@ Combine these workflows in a way that respects the user's attention budget. Use 
 - [ ] Create a new project from Settings — appears in FilterChips and QuickAddForm dropdown immediately, becomes active filter
 - [ ] Archive a project — disappears from filters; tasks remain
 - [ ] Personal project cannot be archived (button hidden)
-- [ ] Pomodoro timer counts down, transitions correctly between focus/break, persists across page navigation
+- [ ] Pomodoro timer counts down and supports manual focus/break switching; timer state is in React state and resets on route/page remount
 
 ### 7.6 Privacy / data
 - [ ] No network calls after initial bundle load (verifiable in DevTools Network tab)
-- [ ] All data lives in IndexedDB `ultodo` database
-- [ ] Reloading the page restores exact previous state
+- [ ] All task/project/tag/settings data lives in IndexedDB `ultodo-local` database
+- [ ] Reloading the page restores persisted tasks, projects, tags, and settings
 
 ---
 
@@ -289,7 +289,7 @@ If the user starts using a paper notebook again, the product has failed.
 - Project CRUD with archive
 - Korean / English i18n
 - Drag-and-drop matrix
-- Pomodoro timer with task pre-loading
+- Standalone focus/break Pomodoro timer
 - Sidebar navigation on desktop, BottomNav on mobile
 
 ### Phase 2 — Polish (next)
@@ -315,7 +315,7 @@ If the user starts using a paper notebook again, the product has failed.
 
 ## 12. Open Questions
 
-- Should the Pomodoro timer ring/notify on completion? Phase 1 silently transitions; user has to look. Not yet decided whether silent execution is correct or just unfinished.
+- Should the Pomodoro timer ring/notify on completion or automatically switch modes? Current code stops quietly at 00:00; not yet decided whether silent completion is correct or just unfinished.
 - Should completed tasks fade out of Brain Dump after N days? Currently they stay forever in the Completed section.
 - Should there be an "Unarchive project" path? Currently archive is one-way from the UI; user must edit IndexedDB directly to restore. Acceptable for v1.
 

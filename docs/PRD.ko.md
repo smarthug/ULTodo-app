@@ -79,7 +79,7 @@
 
 ### 5.1 데일리 루프 (P0 — 필수)
 - **US-01** 사용자로서, 앱을 열면 진행률 바와 함께 Today 짧은 리스트가 보여서 오늘 정확히 무엇을 실행할지 안다.
-- **US-02** 사용자로서, Today task의 `Start`를 탭하면 카운트다운 아래에 그 task의 제목이 표시된 채 포모도로 타이머가 띄워진다.
+- **US-02** 사용자로서, Today task를 탭하면 상세 패널이 열려 맥락을 잃지 않고 집중 표시, 완료, 사분면 이동, 편집, 삭제를 할 수 있다.
 - **US-03** 사용자로서, 어느 화면에서든 5초 안에 새 task를 캡처한다 — 모바일은 바텀바 `+`, 데스크탑은 사이드바 Add task 버튼.
 - **US-04** 사용자로서, 캡처한 task를 Inbox에서 4개 매트릭스 사분면 중 하나로 드래그해서 우선도를 부여한다.
 - **US-05** 사용자로서, 어느 리스트 view에서든 체크박스 한 번 탭으로 task를 완료 표시한다.
@@ -120,7 +120,7 @@
 ### 6.2 Today 페이지
 - 짧은 리스트로 `selectTodayTasks(tasks, settings)`를 읽음 (결정적, `settings.todayCount`로 캡됨)
 - 완료/전체를 보여주는 라이브 진행률 바
-- 각 task는 `Start` 버튼 오버레이가 있는 `TaskCard`
+- 각 task는 클릭 가능한 `TaskCard`이며, 열면 공유 `TaskDetailPanel` 액션을 표시한다
 - 페이지 헤더 안에 인라인 focus count 스테퍼 (`Minus` / 값 / `Plus`)
 - 데스크탑: 3-pane 레이아웃 (필터 칩 헤더 + 리스트 / 우측 `TaskDetailPanel`)
 
@@ -143,8 +143,8 @@
 - 시간 길이는 `settings.pomodoroMinutes`와 `settings.breakMinutes`에서 가져옴
 - 원형 SVG 모방 진행률 (테두리가 있는 링의 clip-path)
 - 모바일: 288px 원. 데스크탑: 384px 원.
-- 라우트가 `navigate('/pomo', { state: { taskId } })`로 도달했다면 (`Start` 버튼에서) 그 task를 focus 주제로 사전 로드
-- 그렇지 않으면 `focus: true`이고 `done: false`인 첫 task를 픽
+- 타이머는 독립형이며 `settings.pomodoroMinutes`와 `settings.breakMinutes`에서 길이를 읽는다
+- 현재 코드는 포모도로 세션을 특정 task에 연결하거나 라우트 이동 간 타이머 상태를 영속하지 않는다
 - 컨트롤: Reset / Start / Pause
 
 ### 6.6 Settings 페이지
@@ -165,12 +165,12 @@
 ### 6.8 Task detail 패널 (`TaskDetailPanel`)
 - 두 variant: `sheet`(모바일 바텀 시트)와 `inline`(데스크탑 우측 고정 패널)
 - 인라인 variant는 task가 선택되지 않았을 때 "Select a task" 빈 상태 표시
-- 본문: 제목, 노트, Focus / Done / Start 버튼(3컬럼), Move without dragging(4버튼 토글, Inbox 버튼 없음), Edit task 버튼
+- 본문: 제목, 노트, Focus / Done 버튼(2컬럼), Move without dragging(4버튼 토글, Inbox 버튼 없음), Edit task 버튼
 - Edit task → `QuickAddForm` 열림 (모바일은 시트, 데스크탑은 본문 아래 인라인)
 - 방어적 lookup: `store.tasks.find(t => t.id === selectedTask?.id) ?? null` — 삭제 시 패널 자동 클리어
 
 ### 6.9 영속성
-- 단일 IndexedDB 데이터베이스 `ultodo`, 오브젝트 스토어: `tasks`, `projects`, `tags`, `settings`, `meta`
+- 단일 IndexedDB 데이터베이스 `ultodo-local`, 오브젝트 스토어: `tasks`, `projects`, `tags`, `settings`, `pomodoroSessions`, `meta`
 - `bootstrapDatabase()`가 첫 로드 시 기본값을 시드 (`meta.seededVersion`을 통해 멱등)
 - 모든 변경은 `repositories.ts` export → `useTaskStore` 리로드 → React 리렌더로 진행
 - 낙관적 업데이트 없음; 모두 `await db.put → reload → setState`
@@ -220,12 +220,12 @@
 - [ ] Settings에서 새 프로젝트 생성 — FilterChips와 QuickAddForm 드롭다운에 즉시 표시되고 활성 필터가 됨
 - [ ] 프로젝트 보관 — 필터에서 사라짐; task는 그대로
 - [ ] Personal 프로젝트는 보관 불가 (버튼 숨김)
-- [ ] 포모도로 타이머가 카운트다운하고, focus/break 사이를 올바르게 전환하며, 페이지 이동 시에도 영속됨
+- [ ] 포모도로 타이머가 카운트다운하고 수동 focus/break 전환을 지원함; 타이머 상태는 React state이며 라우트/페이지 remount 시 리셋됨
 
 ### 7.6 프라이버시 / 데이터
 - [ ] 초기 번들 로드 후 네트워크 호출 없음 (DevTools Network 탭에서 검증 가능)
-- [ ] 모든 데이터가 IndexedDB `ultodo` 데이터베이스에 살음
-- [ ] 페이지 새로고침 시 정확한 이전 상태로 복원
+- [ ] task/project/tag/settings 데이터가 IndexedDB `ultodo-local` 데이터베이스에 살음
+- [ ] 페이지 새로고침 시 영속된 tasks, projects, tags, settings가 복원됨
 
 ---
 
@@ -289,7 +289,7 @@
 - 보관(archive) 지원하는 프로젝트 CRUD
 - 한국어 / 영어 i18n
 - 드래그앤드롭 매트릭스
-- task 사전 로딩이 가능한 포모도로 타이머
+- 독립형 focus/break 포모도로 타이머
 - 데스크탑 사이드바 네비, 모바일 BottomNav
 
 ### Phase 2 — 다듬기 (다음)
@@ -315,7 +315,7 @@
 
 ## 12. 미해결 질문
 
-- 포모도로 타이머가 완료 시 알림/벨을 울려야 할까? Phase 1은 조용히 전환하고, 사용자가 직접 봐야 함. 조용한 실행이 옳은 건지, 아니면 그저 미완성인지 아직 결정되지 않음.
+- 포모도로 타이머가 완료 시 알림/벨을 울리거나 자동으로 모드를 전환해야 할까? 현재 코드는 00:00에서 조용히 멈춤. 조용한 완료가 옳은 건지, 아니면 그저 미완성인지 아직 결정되지 않음.
 - 완료된 task를 N일 후 Brain Dump에서 페이드아웃 시켜야 할까? 현재는 Completed 섹션에 영원히 머무름.
 - "프로젝트 보관 해제(Unarchive)" 경로가 있어야 할까? 현재 보관은 UI에서 일방향; 사용자가 IndexedDB를 직접 편집해야 복원 가능. v1으로는 수용 가능.
 

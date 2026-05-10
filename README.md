@@ -16,7 +16,7 @@ Production-oriented Vite implementation of the ULTodo MVP, scaffolded as a sibli
 ## Run
 
 ```bash
-npm install
+npm install --legacy-peer-deps
 npm run dev
 ```
 

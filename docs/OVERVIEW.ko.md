@@ -25,7 +25,7 @@ ULTodo는 단일 사용자용 생산성 웹 앱입니다. 한 가지 전제에�
 ## 주요 기능
 
 ### 1. Today (오늘 집중)
-하루 우선 task 1~7개의 조절 가능한 짧은 리스트. 라이브 진행률 바가 완료율을 보여줍니다. 첫 번째 task는 시각적으로 강조되어 "다음에 할 일"임을 표시. 각 task의 `Start` 버튼은 그 task를 focus 주제로 미리 로드한 채 포모도로 타이머를 띄웁니다.
+하루 우선 task 1~7개의 조절 가능한 짧은 리스트. 라이브 진행률 바가 완료율을 보여줍니다. 첫 번째 task는 시각적으로 강조되어 "다음에 할 일"임을 표시합니다. task를 탭하면 상세 패널에서 집중 표시, 완료, 사분면 이동, 편집, 삭제를 할 수 있습니다.
 
 > *"덜 고르고, 더 깊이 끝낸다."*
 
@@ -51,7 +51,7 @@ ULTodo는 단일 사용자용 생산성 웹 앱입니다. 한 가지 전제에�
 > *"우선순위를 물리적으로 느끼게."*
 
 ### 4. Pomodoro Timer (포모도로 타이머)
-Focus / Break 듀얼 모드 타이머. 모바일 72px, 데스크탑 96px의 큰 원형 진행 표시기. 타이머 아래에 현재 focus task의 제목이 표시됩니다. 집중 시간(5~60분)과 휴식 시간(1~30분) 조절 가능. Reset / Start / Pause 컨트롤.
+Focus / Break 듀얼 모드의 독립형 타이머. 모바일 288px, 데스크탑 384px의 큰 원형 진행 표시기. 집중 시간(5~60분)과 휴식 시간(1~30분) 조절 가능. Reset / Start / Pause 컨트롤.
 
 > *"조용한 실행."*
 
@@ -181,7 +181,7 @@ interface Settings {
 
 ```bash
 # 설치
-npm install
+npm install --legacy-peer-deps
 
 # 개발 (Vite dev server, http://localhost:5173)
 npm run dev
@@ -194,7 +194,7 @@ npm run build
 
 브라우저에서 앱을 열면 첫 로드 시 기본 프로젝트(`Personal`, `ULTodo`, `Writing`, `Home & life`), 태그, 18개의 예제 task가 시드됩니다. 이후 로드는 IndexedDB에서 읽어옵니다.
 
-로컬 데이터 리셋: DevTools → Application → IndexedDB → `ultodo` 데이터베이스 삭제 후 새로고침.
+로컬 데이터 리셋: DevTools → Application → IndexedDB → `ultodo-local` 데이터베이스 삭제 후 새로고침.
 
 ---
 
@@ -205,7 +205,7 @@ npm run build
 배포됨:
 - 5개 라우트 모두 (Today, Brain Dump, Matrix, Pomodoro, Settings)
 - 드래그앤드롭 매트릭스 분류
-- Task 사전 로딩이 가능한 포모도로 타이머
+- 독립형 Focus / Break 포모도로 타이머
 - 컬러 팔레트 + 소프트 보관(archive) 지원하는 프로젝트 CRUD
 - 한국어 / 영어 언어 토글
 - 반응형 데스크탑 레이아웃 (사이드바 + Today 3-pane, 4컬럼 매트릭스, 3컬럼 브레인덤프 그리드)

@@ -25,7 +25,7 @@ The whole app fits inside a 430-pixel phone frame on small screens, and expands 
 ## Key Features
 
 ### 1. Today Focus
-Configurable shortlist of 1–7 priority tasks for the day. A live progress bar shows completion. The first task is visually accented as the "next thing." A `Start` button on each task launches the Pomodoro timer pre-loaded with that task as the focus subject.
+Configurable shortlist of 1–7 priority tasks for the day. A live progress bar shows completion. The first task is visually accented as the "next thing." Tapping a task opens its detail panel, where it can be focused, completed, moved, edited, or deleted.
 
 > *"Choose less. Finish deeper."*
 
@@ -51,7 +51,7 @@ Quadrants:
 > *"Make priority feel physical."*
 
 ### 4. Pomodoro Timer
-A focused/break dual-mode timer with a generous 72px (mobile) / 96px (desktop) circular progress indicator. The current focus task title is shown beneath the timer. Configurable focus minutes (5–60) and break minutes (1–30). Reset / Start / Pause controls.
+A focused/break dual-mode standalone timer with a generous 288px (mobile) / 384px (desktop) circular progress indicator. Configurable focus minutes (5–60) and break minutes (1–30). Reset / Start / Pause controls.
 
 > *"Quiet execution."*
 
@@ -181,7 +181,7 @@ interface Settings {
 
 ```bash
 # Install
-npm install
+npm install --legacy-peer-deps
 
 # Develop (Vite dev server, http://localhost:5173)
 npm run dev
@@ -194,7 +194,7 @@ npm run build
 
 Open the app in a browser. The first load seeds default projects (`Personal`, `ULTodo`, `Writing`, `Home & life`), tags, and 18 example tasks. Subsequent loads read from IndexedDB.
 
-To reset the local data: open DevTools → Application → IndexedDB → delete the `ultodo` database, then refresh.
+To reset the local data: open DevTools → Application → IndexedDB → delete the `ultodo-local` database, then refresh.
 
 ---
 
@@ -205,7 +205,7 @@ To reset the local data: open DevTools → Application → IndexedDB → delete 
 Shipped:
 - All 5 routes (Today, Brain Dump, Matrix, Pomodoro, Settings)
 - Drag-and-drop matrix triage
-- Pomodoro timer with task pre-loading
+- Standalone focus/break Pomodoro timer
 - Project CRUD with color palette + soft archive
 - Korean / English language toggle
 - Responsive desktop layout (sidebar + 3-pane on Today, 4-column matrix, 3-column brain dump grid)
