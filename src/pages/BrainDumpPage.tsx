@@ -65,9 +65,9 @@ export function BrainDumpPage() {
     </div>
   ) : (
     <div>
-      <Section title="Inbox" hint="Untriaged" tasks={grouped.inbox} />
       <Section title="Important" hint="Matrix · this week" tasks={grouped.important} />
       <Section title="Someday" hint="Delegate · Drop" tasks={grouped.someday} />
+      <Section title="Inbox" hint="Untriaged" tasks={grouped.inbox} />
       <Section title="Completed" hint="Done" tasks={grouped.done} />
     </div>
   )
