@@ -157,8 +157,8 @@
 
 ### 6.7 Quick add / 편집 폼 (`QuickAddForm`)
 - 신규 task 생성과 기존 task 편집 모두에 쓰이는 단일 공유 컴포넌트
-- 자체 상태 보유 (8개 useState 필드). 부모는 `open`-keyed `useEffect`가 아니라 React `key` prop으로 reset 제어
-- 필드: 제목, 노트, 프로젝트(드롭다운), 추정 시간(숫자), 태그(칩 + 새 태그 input), 우선도(4개 토글 사분면 버튼, Inbox 버튼 없음 — 미선택 = Inbox), Today focus 토글
+- 자체 상태 보유 (7개 useState 필드). 부모는 `open`-keyed `useEffect`가 아니라 React `key` prop으로 reset 제어
+- 필드: 제목, 노트, 프로젝트(단일 선택 라디오 칩), 태그(칩 + 새 태그 input), 우선도(4개 토글 사분면 버튼, Inbox 버튼 없음 — 미선택 = Inbox), Today focus 토글
 - 모바일 진입: 바텀 시트 (`QuickAddSheet`)
 - 데스크탑 진입: Sidebar `Add task` 버튼에서 트리거 시 Today/BrainDump 리스트 상단에 인라인 패널
 
@@ -217,7 +217,7 @@
 - [ ] 매트릭스 사분면 사이로 task 드래그 — 즉시 영속됨
 - [ ] 매트릭스에서 task 클릭 → 사분면 이동 버튼이 있는 패널 열림
 - [ ] 언어 en ↔ ko 전환 — Sidebar / MenuSheet / SettingsPage 라벨이 업데이트됨
-- [ ] Settings에서 새 프로젝트 생성 — FilterChips와 QuickAddForm 드롭다운에 즉시 표시되고 활성 필터가 됨
+- [ ] Settings에서 새 프로젝트 생성 — FilterChips와 QuickAddForm 프로젝트 칩에 즉시 표시되고 활성 필터가 됨
 - [ ] 프로젝트 보관 — 필터에서 사라짐; task는 그대로
 - [ ] Personal 프로젝트는 보관 불가 (버튼 숨김)
 - [ ] 포모도로 타이머가 카운트다운하고 수동 focus/break 전환을 지원함; 타이머 상태는 React state이며 라우트/페이지 remount 시 리셋됨

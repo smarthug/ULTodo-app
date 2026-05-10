@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, type KeyboardEvent } from 'react'
 import { X } from 'lucide-react'
 import { QLIST } from '@/data/quadrants'
 import { useTaskStore } from '@/features/tasks/task-store'
@@ -23,7 +23,6 @@ export function QuickAddForm({ editingTask, onSubmit, onDelete, onClose, variant
   const [tagIds, setTagIds] = useState<string[]>(editingTask?.tagIds ?? [])
   const [quadrant, setQuadrant] = useState<QuadrantId | null>(editingTask?.quadrant ?? null)
   const [focus, setFocus] = useState(editingTask?.focus ?? false)
-  const [estMin, setEstMin] = useState(editingTask?.estMin ?? 15)
   const [newTag, setNewTag] = useState('')
 
   const projectOptions = useMemo(
@@ -33,7 +32,7 @@ export function QuickAddForm({ editingTask, onSubmit, onDelete, onClose, variant
 
   const submit = async () => {
     if (!title.trim()) return
-    const draft: TaskDraft = { title, note, projectId, tagIds, quadrant, focus, estMin }
+    const draft: TaskDraft = { title, note, projectId, tagIds, quadrant, focus }
     if (editingTask) await store.patchTask(editingTask.id, draft)
     else await store.addTask(draft)
     onSubmit()
@@ -50,6 +49,19 @@ export function QuickAddForm({ editingTask, onSubmit, onDelete, onClose, variant
     if (!editingTask) return
     await store.removeTask(editingTask.id)
     onDelete?.()
+  }
+
+  const selectProjectByKeyboard = (event: KeyboardEvent<HTMLButtonElement>) => {
+    const direction = event.key === 'ArrowRight' || event.key === 'ArrowDown' ? 1 : event.key === 'ArrowLeft' || event.key === 'ArrowUp' ? -1 : 0
+    if (!direction) return
+    event.preventDefault()
+    const currentIndex = projectOptions.findIndex((project) => project.id === projectId)
+    const nextIndex = ((currentIndex === -1 ? 0 : currentIndex) + direction + projectOptions.length) % projectOptions.length
+    const next = projectOptions[nextIndex]
+    if (!next) return
+    setProjectId(next.id)
+    const buttons = Array.from(event.currentTarget.closest('[role="radiogroup"]')?.querySelectorAll<HTMLButtonElement>('[role="radio"]') ?? [])
+    buttons[nextIndex]?.focus()
   }
 
   const showHeader = variant === 'sheet'
@@ -83,26 +95,28 @@ export function QuickAddForm({ editingTask, onSubmit, onDelete, onClose, variant
         className="mt-2 min-h-20 w-full resize-none rounded-2xl border border-[var(--hair)] bg-paper-2 px-4 py-3 text-sm text-ink outline-none focus:border-accent"
       />
 
-      <div className="mt-4 grid grid-cols-2 gap-3">
-        <label className="block text-xs font-semibold uppercase tracking-[.08em] text-ink-3">Project
-          <select
-            value={projectId}
-            onChange={(e) => setProjectId(e.target.value)}
-            className="mt-2 w-full rounded-2xl border border-[var(--hair)] bg-paper-2 px-3 py-3 text-sm normal-case tracking-normal text-ink"
-          >
-            {projectOptions.map((project) => <option key={project.id} value={project.id}>{project.name}</option>)}
-          </select>
-        </label>
-        <label className="block text-xs font-semibold uppercase tracking-[.08em] text-ink-3">Estimate
-          <input
-            type="number"
-            min={0}
-            value={estMin}
-            onChange={(e) => setEstMin(Number(e.target.value))}
-            className="mt-2 w-full rounded-2xl border border-[var(--hair)] bg-paper-2 px-3 py-3 text-sm normal-case tracking-normal text-ink"
-          />
-        </label>
-      </div>
+      <fieldset className="mt-4">
+        <legend className="mb-2 text-xs font-semibold uppercase tracking-[.08em] text-ink-3">Project</legend>
+        <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Project">
+          {projectOptions.map((project) => {
+            const active = projectId === project.id
+            return (
+              <button
+                key={project.id}
+                type="button"
+                role="radio"
+                aria-checked={active}
+                onClick={() => setProjectId(project.id)}
+                onKeyDown={selectProjectByKeyboard}
+                className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium transition ${active ? 'border-ink bg-ink text-paper' : 'border-[var(--hair-2)] bg-transparent text-ink-2'}`}
+              >
+                {!active ? <span className="size-1.5 rounded-full" style={{ background: project.color }} /> : null}
+                {project.name}
+              </button>
+            )
+          })}
+        </div>
+      </fieldset>
 
       <div className="mt-4">
         <div className="mb-2 text-xs font-semibold uppercase tracking-[.08em] text-ink-3">Tags</div>

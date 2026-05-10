@@ -157,8 +157,8 @@ Combine these workflows in a way that respects the user's attention budget. Use 
 
 ### 6.7 Quick add and edit form (`QuickAddForm`)
 - Single shared component for both new task creation and existing task editing
-- Owns its own state (8 useState fields). Parent controls reset via React `key` prop, not via `open`-keyed `useEffect`
-- Fields: title, note, project (dropdown), estimate (number), tags (chips + new-tag input), priority (4 toggleable quadrant buttons, no Inbox button — unselected = Inbox), Today focus toggle
+- Owns its own state (7 useState fields). Parent controls reset via React `key` prop, not via `open`-keyed `useEffect`
+- Fields: title, note, project (single-select radio chips), tags (chips + new-tag input), priority (4 toggleable quadrant buttons, no Inbox button — unselected = Inbox), Today focus toggle
 - Mobile entry: bottom sheet (`QuickAddSheet`)
 - Desktop entry: inline panel at top of Today/BrainDump list when triggered from the Sidebar `Add task` button
 
@@ -217,7 +217,7 @@ Combine these workflows in a way that respects the user's attention budget. Use 
 - [ ] Drag a task between matrix quadrants — persists immediately
 - [ ] Click a task in matrix → opens panel with quadrant move buttons
 - [ ] Switch language en ↔ ko — Sidebar / MenuSheet / SettingsPage labels update
-- [ ] Create a new project from Settings — appears in FilterChips and QuickAddForm dropdown immediately, becomes active filter
+- [ ] Create a new project from Settings — appears in FilterChips and QuickAddForm project chips immediately, becomes active filter
 - [ ] Archive a project — disappears from filters; tasks remain
 - [ ] Personal project cannot be archived (button hidden)
 - [ ] Pomodoro timer counts down and supports manual focus/break switching; timer state is in React state and resets on route/page remount
