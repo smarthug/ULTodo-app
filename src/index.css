@@ -32,3 +32,17 @@ button, input, textarea, select { font: inherit; }
 button { -webkit-tap-highlight-color: transparent; }
 .ul-scroll { overflow-y: auto; overflow-x: hidden; scrollbar-width: none; -ms-overflow-style: none; }
 .ul-scroll::-webkit-scrollbar { display: none; }
+.matrix-sortable-ghost {
+  opacity: 0.35;
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--accent) 62%, transparent);
+  background: var(--accent-soft);
+}
+.matrix-sortable-chosen {
+  cursor: grabbing;
+}
+.matrix-sortable-drag {
+  opacity: 0.95;
+  transform: rotate(-1deg);
+  box-shadow: 0 18px 38px rgb(20 18 15 / 0.18);
+}

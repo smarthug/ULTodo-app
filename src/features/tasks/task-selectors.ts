@@ -1,4 +1,4 @@
-import { quadrantRank } from '@/data/quadrants'
+import { matrixLaneForQuadrant, quadrantRank, type MatrixLaneId } from '@/data/quadrants'
 import type { Settings } from '@/features/settings/settings-types'
 import type { ProjectFilterId, Task, TaskFilters } from './task-types'
 
@@ -38,6 +38,26 @@ export function selectTodayTasks(tasks: Task[], settings: Pick<Settings, 'todayC
     .filter((task) => !focusedIds.has(task.id) && task.quadrant === 'ui')
     .sort((a, b) => newest(a.updatedAt, b.updatedAt) || newest(a.createdAt, b.createdAt))
   return [...focused, ...fill].slice(0, settings.todayCount)
+}
+
+function legacyMatrixOrder(task: Task) {
+  if (task.quadrant === 'ui' || task.quadrant === 'nui') return 100_000
+  if (task.quadrant === 'uni' || task.quadrant === 'nuni') return 200_000
+  return 300_000
+}
+
+export function compareMatrixTasks(a: Task, b: Task) {
+  const order = (a.matrixOrder ?? legacyMatrixOrder(a)) - (b.matrixOrder ?? legacyMatrixOrder(b))
+  if (order !== 0) return order
+  const updated = newest(a.updatedAt, b.updatedAt)
+  if (updated !== 0) return updated
+  return newest(a.createdAt, b.createdAt)
+}
+
+export function selectMatrixLaneTasks(tasks: Task[], lane: MatrixLaneId) {
+  return tasks
+    .filter((task) => matrixLaneForQuadrant(task.quadrant) === lane)
+    .sort(compareMatrixTasks)
 }
 
 export function groupBrainDump(tasks: Task[]) {

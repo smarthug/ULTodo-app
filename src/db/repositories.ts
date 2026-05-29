@@ -30,6 +30,7 @@ export async function createTask(draft: TaskDraft) {
     projectId: draft.projectId,
     tagIds: draft.tagIds ?? [],
     quadrant: draft.quadrant ?? null,
+    matrixOrder: draft.matrixOrder,
     done: false,
     focus: draft.focus ?? false,
     estMin: draft.estMin ?? 15,
@@ -50,6 +51,27 @@ export async function updateTask(id: string, patch: Partial<Task>) {
   if (patch.done === false) next.completedAt = null
   await db.put('tasks', next)
   return next
+}
+
+export async function updateTasks(patches: Array<{ id: string; patch: Partial<Task> }>) {
+  const db = await getDb()
+  const tx = db.transaction('tasks', 'readwrite')
+  const store = tx.objectStore('tasks')
+  const at = nowIso()
+  const saved: Task[] = []
+
+  for (const { id, patch } of patches) {
+    const current = await store.get(id)
+    if (!current) throw new Error(`Task ${id} not found`)
+    const next: Task = { ...current, ...patch, id, updatedAt: at }
+    if (patch.done === true && !current.done) next.completedAt = at
+    if (patch.done === false) next.completedAt = null
+    await store.put(next)
+    saved.push(next)
+  }
+
+  await tx.done
+  return saved
 }
 
 export async function deleteTask(id: string) {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { filterTasks, selectTodayTasks } from './task-selectors'
+import { filterTasks, selectMatrixLaneTasks, selectTodayTasks } from './task-selectors'
 import type { Task } from './task-types'
 
 const task = (id: string, patch: Partial<Task>): Task => ({
@@ -64,5 +64,37 @@ describe('selectTodayTasks', () => {
     const result = selectTodayTasks([nonUi, filler], { todayCount: 3 })
     expect(result.map((t) => t.id)).toEqual(['manual', 'filler'])
     expect(filler.focus).toBe(false)
+  })
+})
+
+describe('selectMatrixLaneTasks', () => {
+  it('maps legacy urgent quadrants into the urgent lane and sorts by matrixOrder', () => {
+    const tasks = [
+      task('late', { quadrant: 'ui', matrixOrder: 3000 }),
+      task('not-urgent', { quadrant: 'nui', matrixOrder: 1000 }),
+      task('early', { quadrant: 'uni', matrixOrder: 1000 }),
+    ]
+
+    expect(selectMatrixLaneTasks(tasks, 'urgent').map((t) => t.id)).toEqual(['early', 'late'])
+  })
+
+  it('keeps not-urgent, old low-importance, and inbox tasks in the not-urgent lane', () => {
+    const tasks = [
+      task('urgent', { quadrant: 'ui' }),
+      task('planned', { quadrant: 'nui', matrixOrder: 2000 }),
+      task('low', { quadrant: 'nuni', matrixOrder: 3000 }),
+      task('inbox', { quadrant: null, matrixOrder: 1000 }),
+    ]
+
+    expect(selectMatrixLaneTasks(tasks, 'not-urgent').map((t) => t.id)).toEqual(['inbox', 'planned', 'low'])
+  })
+
+  it('falls back to legacy importance before timestamp for existing unranked tasks', () => {
+    const tasks = [
+      task('low-newer', { quadrant: 'uni', updatedAt: '2026-04-24T00:09:00.000Z' }),
+      task('important-older', { quadrant: 'ui', updatedAt: '2026-04-24T00:01:00.000Z' }),
+    ]
+
+    expect(selectMatrixLaneTasks(tasks, 'urgent').map((t) => t.id)).toEqual(['important-older', 'low-newer'])
   })
 })

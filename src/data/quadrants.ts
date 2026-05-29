@@ -1,5 +1,7 @@
 import type { QuadrantId } from '@/features/tasks/task-types'
 
+export type MatrixLaneId = 'urgent' | 'not-urgent'
+
 export interface Quadrant {
   id: QuadrantId
   urgent: boolean
@@ -19,3 +21,33 @@ export const Q: Record<'UI' | 'NUI' | 'UNI' | 'NUNI', Quadrant> = {
 export const QLIST = [Q.UI, Q.NUI, Q.UNI, Q.NUNI]
 export const QUADRANT_ORDER: Array<QuadrantId | null> = ['ui', 'nui', 'uni', 'nuni', null]
 export const quadrantRank = (q: QuadrantId | null) => QUADRANT_ORDER.indexOf(q)
+
+export interface MatrixLane {
+  id: MatrixLaneId
+  label: string
+  hint: string
+  tone: string
+}
+
+export const MATRIX_LANES: MatrixLane[] = [
+  {
+    id: 'urgent',
+    label: 'Urgent',
+    hint: 'Higher = more important',
+    tone: 'border-accent/35 bg-accent-soft/55',
+  },
+  {
+    id: 'not-urgent',
+    label: 'Not urgent',
+    hint: 'Plan, park, or lower',
+    tone: 'border-success/25 bg-paper',
+  },
+]
+
+export function matrixLaneForQuadrant(quadrant: QuadrantId | null): MatrixLaneId {
+  return quadrant === 'ui' || quadrant === 'uni' ? 'urgent' : 'not-urgent'
+}
+
+export function quadrantForMatrixLane(lane: MatrixLaneId): QuadrantId {
+  return lane === 'urgent' ? 'ui' : 'nui'
+}

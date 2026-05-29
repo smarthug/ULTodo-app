@@ -1,22 +1,30 @@
-import { useDraggable } from '@dnd-kit/core'
-import { CSS } from '@dnd-kit/utilities'
 import { GripVertical } from 'lucide-react'
+import type { KeyboardEvent } from 'react'
 import type { Task } from '@/features/tasks/task-types'
 
 export function MatrixTaskChip({ task, onOpen }: { task: Task; onOpen: () => void }) {
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id: task.id })
+  const openFromKeyboard = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter') onOpen()
+  }
+
   return (
-    <button
-      ref={setNodeRef}
-      type="button"
+    <div
+      data-task-id={task.id}
+      role="button"
+      tabIndex={0}
+      aria-label={task.title}
       onDoubleClick={onOpen}
-      className={`flex w-full touch-none items-center gap-2 rounded-xl border border-[var(--hair)] bg-paper px-3 py-2 text-left text-xs font-semibold text-ink shadow-sm transition ${isDragging ? 'opacity-50' : ''}`}
-      style={{ transform: CSS.Translate.toString(transform), zIndex: isDragging ? 50 : undefined }}
-      {...listeners}
-      {...attributes}
+      onKeyDown={openFromKeyboard}
+      className="group relative flex min-h-[58px] w-full items-center gap-2 rounded-xl border border-[var(--hair)] bg-paper px-2.5 py-2.5 text-left text-sm font-semibold text-ink shadow-sm transition"
     >
-      <GripVertical size={13} className="shrink-0 text-ink-4" />
-      <span className="line-clamp-2 flex-1">{task.title}</span>
-    </button>
+      <button
+        type="button"
+        aria-label={`Drag ${task.title}`}
+        className="matrix-drag-handle flex h-10 w-8 shrink-0 cursor-grab touch-none items-center justify-center rounded-lg text-ink-4 transition active:cursor-grabbing group-hover:bg-ink/5"
+      >
+        <GripVertical size={17} />
+      </button>
+      <span className="line-clamp-3 min-w-0 flex-1 leading-snug">{task.title}</span>
+    </div>
   )
 }

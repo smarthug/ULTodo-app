@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { X, Inbox } from 'lucide-react'
-import { QLIST } from '@/data/quadrants'
+import { MATRIX_LANES, matrixLaneForQuadrant, quadrantForMatrixLane, type MatrixLaneId } from '@/data/quadrants'
 import { useTaskStore } from '@/features/tasks/task-store'
-import type { QuadrantId, Task } from '@/features/tasks/task-types'
+import type { Task } from '@/features/tasks/task-types'
 import { Button } from '@/components/ui/button'
 import { QuickAddSheet } from './QuickAddSheet'
 import { QuickAddForm } from './QuickAddForm'
@@ -41,7 +41,8 @@ export function TaskDetailPanel({ task, onClose, variant = 'sheet' }: Props) {
     return null
   }
 
-  const move = async (quadrant: QuadrantId | null) => store.patchTask(task.id, { quadrant })
+  const move = async (lane: MatrixLaneId) => store.patchTask(task.id, { quadrant: quadrantForMatrixLane(lane) })
+  const activeLane = matrixLaneForQuadrant(task.quadrant)
 
   const body = (
     <>
@@ -71,16 +72,16 @@ export function TaskDetailPanel({ task, onClose, variant = 'sheet' }: Props) {
       <div className="mb-4">
         <div className="mb-2 flex items-baseline justify-between">
           <p className="font-mono text-[10px] uppercase tracking-[.12em] text-ink-3">Move without dragging</p>
-          <p className="font-mono text-[10px] text-ink-4">unselected → Inbox</p>
+          <p className="font-mono text-[10px] text-ink-4">fine-tune order in Matrix</p>
         </div>
         <div className="grid grid-cols-2 gap-2">
-          {QLIST.map((q) => (
+          {MATRIX_LANES.map((lane) => (
             <Button
-              key={q.id}
-              variant={task.quadrant === q.id ? 'default' : 'soft'}
-              onClick={() => move(task.quadrant === q.id ? null : q.id)}
+              key={lane.id}
+              variant={activeLane === lane.id ? 'default' : 'soft'}
+              onClick={() => move(lane.id)}
             >
-              {q.label}
+              {lane.label}
             </Button>
           ))}
         </div>

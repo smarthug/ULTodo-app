@@ -8,6 +8,7 @@ export interface Task {
   projectId: string
   tagIds: string[]
   quadrant: QuadrantId | null
+  matrixOrder?: number
   done: boolean
   focus: boolean
   estMin: number
@@ -37,6 +38,7 @@ export interface TaskDraft {
   projectId: string
   tagIds?: string[]
   quadrant?: QuadrantId | null
+  matrixOrder?: number
   focus?: boolean
   estMin?: number
 }

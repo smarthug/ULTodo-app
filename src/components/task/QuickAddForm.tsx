@@ -1,8 +1,8 @@
 import { useMemo, useState, type KeyboardEvent } from 'react'
 import { X } from 'lucide-react'
-import { QLIST } from '@/data/quadrants'
+import { MATRIX_LANES, matrixLaneForQuadrant, quadrantForMatrixLane, type MatrixLaneId } from '@/data/quadrants'
 import { useTaskStore } from '@/features/tasks/task-store'
-import type { QuadrantId, Task, TaskDraft } from '@/features/tasks/task-types'
+import type { Task, TaskDraft } from '@/features/tasks/task-types'
 import { Button } from '@/components/ui/button'
 import { TagChip } from './TagChip'
 
@@ -21,7 +21,7 @@ export function QuickAddForm({ editingTask, onSubmit, onDelete, onClose, variant
   const [note, setNote] = useState(editingTask?.note ?? '')
   const [projectId, setProjectId] = useState(editingTask?.projectId ?? store.projects[0]?.id ?? 'personal')
   const [tagIds, setTagIds] = useState<string[]>(editingTask?.tagIds ?? [])
-  const [quadrant, setQuadrant] = useState<QuadrantId | null>(editingTask?.quadrant ?? null)
+  const [lane, setLane] = useState<MatrixLaneId>(matrixLaneForQuadrant(editingTask?.quadrant ?? null))
   const [focus, setFocus] = useState(editingTask?.focus ?? false)
   const [newTag, setNewTag] = useState('')
 
@@ -32,7 +32,7 @@ export function QuickAddForm({ editingTask, onSubmit, onDelete, onClose, variant
 
   const submit = async () => {
     if (!title.trim()) return
-    const draft: TaskDraft = { title, note, projectId, tagIds, quadrant, focus }
+    const draft: TaskDraft = { title, note, projectId, tagIds, quadrant: quadrantForMatrixLane(lane), focus }
     if (editingTask) await store.patchTask(editingTask.id, draft)
     else await store.addTask(draft)
     onSubmit()
@@ -143,18 +143,18 @@ export function QuickAddForm({ editingTask, onSubmit, onDelete, onClose, variant
 
       <div className="mt-4">
         <div className="mb-2 flex items-baseline justify-between">
-          <span className="text-xs font-semibold uppercase tracking-[.08em] text-ink-3">Priority</span>
-          <span className="font-mono text-[10px] text-ink-4">unselected → Inbox</span>
+          <span className="text-xs font-semibold uppercase tracking-[.08em] text-ink-3">Matrix lane</span>
+          <span className="font-mono text-[10px] text-ink-4">order it in Matrix</span>
         </div>
         <div className="grid grid-cols-2 gap-2">
-          {QLIST.map((q) => (
+          {MATRIX_LANES.map((option) => (
             <button
-              key={q.id}
+              key={option.id}
               type="button"
-              onClick={() => setQuadrant((prev) => (prev === q.id ? null : q.id))}
-              className={`rounded-2xl border p-3 text-left text-xs ${quadrant === q.id ? 'border-accent bg-accent-soft' : 'border-[var(--hair)] bg-paper-2'}`}
+              onClick={() => setLane(option.id)}
+              className={`rounded-2xl border p-3 text-left text-xs ${lane === option.id ? 'border-accent bg-accent-soft' : 'border-[var(--hair)] bg-paper-2'}`}
             >
-              {q.label}<br/><span className="text-ink-3">{q.hint}</span>
+              {option.label}<br/><span className="text-ink-3">{option.hint}</span>
             </button>
           ))}
         </div>

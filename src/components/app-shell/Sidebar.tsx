@@ -15,7 +15,7 @@ export function Sidebar({ onQuickAdd }: SidebarProps) {
   const counts = {
     today: store.tasks.filter((task) => task.focus && !task.done).length,
     brain: store.tasks.filter((task) => !task.done).length,
-    matrix: store.tasks.filter((task) => task.quadrant && !task.done).length,
+    matrix: store.tasks.filter((task) => !task.done).length,
   }
 
   const items = [

@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import i18n from '@/i18n'
 import { bootstrapDatabase } from '@/db/bootstrap'
-import { archiveProject as archiveProjectRepo, createProject, createTag, createTask, deleteTask, patchSettings, readAll, replaceProject, updateTask } from '@/db/repositories'
+import { archiveProject as archiveProjectRepo, createProject, createTag, createTask, deleteTask, patchSettings, readAll, replaceProject, updateTask, updateTasks } from '@/db/repositories'
 import { DEFAULT_SETTINGS, type Settings } from '@/features/settings/settings-types'
 import type { Project, Tag, Task, TaskDraft } from './task-types'
 
@@ -14,6 +14,7 @@ interface TaskStoreValue {
   reload: () => Promise<void>
   addTask: (draft: TaskDraft) => Promise<Task>
   patchTask: (id: string, patch: Partial<Task>) => Promise<Task>
+  patchTasks: (patches: Array<{ id: string; patch: Partial<Task> }>) => Promise<Task[]>
   removeTask: (id: string) => Promise<void>
   toggleTask: (id: string) => Promise<void>
   addTag: (name: string) => Promise<Tag>
@@ -58,6 +59,12 @@ export function TaskStoreProvider({ children }: { children: ReactNode }) {
     const task = await updateTask(id, patch)
     await reload()
     return task
+  }, [reload])
+
+  const patchTasks = useCallback(async (patches: Array<{ id: string; patch: Partial<Task> }>) => {
+    const updated = await updateTasks(patches)
+    await reload()
+    return updated
   }, [reload])
 
   const removeTask = useCallback(async (id: string) => {
@@ -122,6 +129,7 @@ export function TaskStoreProvider({ children }: { children: ReactNode }) {
     reload,
     addTask,
     patchTask,
+    patchTasks,
     removeTask,
     toggleTask,
     addTag,
@@ -129,7 +137,7 @@ export function TaskStoreProvider({ children }: { children: ReactNode }) {
     renameProject,
     archiveProject,
     setSettings,
-  }), [ready, tasks, projects, tags, settings, reload, addTask, patchTask, removeTask, toggleTask, addTag, addProject, renameProject, archiveProject, setSettings])
+  }), [ready, tasks, projects, tags, settings, reload, addTask, patchTask, patchTasks, removeTask, toggleTask, addTag, addProject, renameProject, archiveProject, setSettings])
 
   return <TaskStoreContext.Provider value={value}>{children}</TaskStoreContext.Provider>
 }
