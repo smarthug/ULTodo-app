@@ -37,7 +37,7 @@ export function MatrixPage() {
           <p className="mb-2 font-mono text-[10px] uppercase tracking-[.12em] text-ink-3">Matrix · drag-to-rank</p>
           <h1 className="font-serif text-[34px] italic leading-[.98] tracking-[-.04em] text-ink">Rank what matters<br/><span className="text-accent">by height.</span></h1>
         </section>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
           {MATRIX_LANES.map((lane) => <MatrixQuadrant key={lane.id} lane={lane} tasks={tasksByLane[lane.id]} onOpen={openTask} onSortEnd={onSortEnd} />)}
         </div>
         <p className="mt-3 text-center text-[11px] leading-relaxed text-ink-4">Drag higher for more priority. Double-click a chip to open fallback controls.</p>

@@ -10,7 +10,8 @@ Production-oriented Vite implementation of the ULTodo MVP, scaffolded as a sibli
 - React Router
 - i18next / react-i18next
 - IndexedDB via `idb`
-- Matrix drag/drop via `@dnd-kit/core`
+- Matrix drag/drop via SortableJS
+- Capacitor Android/iOS native shells
 - Vitest + Testing Library + fake-indexeddb
 
 ## Run
@@ -28,13 +29,23 @@ npm test -- --run
 npm run build
 ```
 
+## Native Builds
+
+```bash
+npm run cap:sync
+cd android
+./gradlew bundleRelease assembleDebug
+```
+
+Release signing is read from `android/keystore.properties` when present. Keep the matching upload key outside git; the project ignores `*.jks`, `*.keystore`, and `keystore.properties`.
+
 ## MVP scope
 
 Routes:
 
 - `/brain` — Brain Dump capture, list/card view, search, project/tag filters
-- `/matrix` — Eisenhower Matrix with dnd-kit drag/drop and fallback move controls
+- `/matrix` — two-column priority Matrix with SortableJS drag/drop ordering
 - `/today` — configurable focus shortlist with deterministic selector semantics
 - `/pomo` — minimal Pomodoro timer with focus/break modes
 
-Phase 1 is local-only. Calendar, timeboxing, auth/sync, advanced analytics, native packaging, and collaboration are intentionally out of scope.
+Phase 1 is local-only. Calendar, timeboxing, auth/sync, advanced analytics, and collaboration are intentionally out of scope.

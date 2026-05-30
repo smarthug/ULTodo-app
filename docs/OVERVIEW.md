@@ -39,13 +39,13 @@ Search bar narrows by title/note text. Project and tag filters scope the view. T
 > *"Everything on your mind, nothing in your way."*
 
 ### 3. Eisenhower Matrix
-A 2×2 grid (mobile) or 4-column row (desktop) of Urgent/Important quadrants, plus an Inbox strip below holding all untriaged tasks. Drag any task between quadrants to retitle its priority. Touch and pointer sensors both supported. Falls back to a tap-then-button move flow for accessibility and small screens.
+A two-column priority board focused on Urgent & Important and Not Urgent & Important work. Drag tasks within a column to refine priority order, or move them between columns when urgency changes. The underlying task data still maps legacy quadrants into the simplified two-column surface.
 
 Quadrants:
 - **Q1 — Urgent & Important** ("ui"): do now
 - **Q2 — Not Urgent & Important** ("nui"): plan
-- **Q3 — Urgent & Not Important** ("uni"): delegate
-- **Q4 — Not Urgent & Not Important** ("nuni"): drop or batch
+- **Q3 — Urgent & Not Important** ("uni"): stored legacy low-priority urgent item
+- **Q4 — Not Urgent & Not Important** ("nuni"): stored legacy low-priority non-urgent item
 - **Inbox** (null quadrant): untriaged backlog
 
 > *"Make priority feel physical."*

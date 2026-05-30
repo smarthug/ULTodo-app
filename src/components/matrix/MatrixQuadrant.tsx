@@ -19,6 +19,7 @@ export interface SortableMatrixMove {
 
 export function MatrixQuadrant({ lane, tasks, onOpen, onSortEnd }: { lane: MatrixLane; tasks: Task[]; onOpen: (task: Task) => void; onSortEnd: (move: SortableMatrixMove) => void }) {
   const listRef = useRef<HTMLDivElement | null>(null)
+  const listKey = `${lane.id}:${tasks.map((task) => task.id).join('|')}`
 
   useEffect(() => {
     const list = listRef.current
@@ -54,15 +55,15 @@ export function MatrixQuadrant({ lane, tasks, onOpen, onSortEnd }: { lane: Matri
     })
 
     return () => sortable.destroy()
-  }, [onSortEnd])
+  }, [listKey, onSortEnd])
 
   return (
-    <div className={`min-h-[360px] overflow-hidden rounded-[18px] border p-3 transition lg:min-h-[calc(100vh-180px)] lg:min-w-0 ${lane.tone}`}>
+    <div className={`min-h-[360px] overflow-hidden rounded-[18px] border p-2.5 transition sm:p-3 lg:min-h-[calc(100vh-180px)] lg:min-w-0 ${lane.tone}`}>
       <div className="mb-3 flex items-start justify-between gap-2">
         <div><h3 className="text-sm font-bold tracking-[-.02em] text-ink">{lane.label}</h3><p className="font-mono text-[9px] uppercase tracking-[.08em] text-ink-4">{lane.hint}</p></div>
         <span className="font-mono text-[10px] text-ink-4">{tasks.length}</span>
       </div>
-      <div ref={listRef} data-lane={lane.id} className="flex min-h-[280px] flex-col gap-2">
+      <div key={listKey} ref={listRef} data-lane={lane.id} className="flex min-h-[280px] flex-col gap-2">
         {tasks.map((task) => <MatrixTaskChip key={task.id} task={task} onOpen={() => onOpen(task)} />)}
         {!tasks.length ? <p className="rounded-xl border border-dashed border-[var(--hair)] p-3 text-center text-xs text-ink-4">Drop tasks here.</p> : null}
       </div>
